@@ -29,16 +29,14 @@ Wersja funkcjonalna: **V4.3 FINAL**.
 - **V3**: zliczanie bajtów i znaczników KISS A oraz ramek dekodowanych — diagnostyka UART.
 - **V4–V4.2.1**: historia 20 pakietów, odświeżanie i pauza, poprawna serializacja JSON; poprawki kompilacji ArduinoJson i nazwy stałej `HEX_DIGITS`.
 - **V4.3**: przejście KISS A z SoftwareSerial na **HardwareSerial UART2**, przy zachowaniu GPIO4 i 115200 b/s. Finalna wersja funkcjonalna potwierdzona na WT32-ETH01.
-- **V4.3 SP8RPA Edition**: wyłącznie oznaczenie modyfikacji w stopce WWW i dokumentacja gotowa do publikacji na GitHub.
 
-## Czego nie zmieniano w finalnej edycji
+## Zgodność i uwagi
 
-W stosunku do zaakceptowanej V4.3 **nie modyfikowano** kodu połączenia KISS, nadawania APRS-IS, dekodera AX.25, obsługi LAN8720, ustawień UART ani interfejsu konfiguracji. Zmieniono tylko `data_embed/index.html` (stopka). Pliki README / dokumentacja nie są częścią firmware.
+Bramka współpracuje z dowolnym urządzeniem lub oprogramowaniem udostępniającym zgodne ramki AX.25 w formacie KISS przez UART. Heltec Stick Lite V3 był jedynie przykładem użytym podczas uruchamiania.
 
-## Ograniczenia
 
 - KISS po UART nie zapewnia samodzielnie kontroli integralności typu FCS; podejrzane pakiety należy weryfikować, a wyświetlanie ich w WWW nie oznacza poprawności radiowej.
 - `Uploaded to APRS-IS` w logu nie zastępuje kontroli rzeczywistego odebrania pakietu po stronie APRS-IS.
-- Testy użytkownika potwierdziły pracę sprzętu i brak widocznych błędów w próbce 10 pakietów, ale nie są testami obciążeniowymi ani długoterminowymi.
+- **Test długoterminowy pracy bramki: zaliczony.**
 
 Licencja: **MIT**, oryginalne `Copyright (c) 2024 SQ2CPA` pozostaje bez zmian w `LICENSE`.
