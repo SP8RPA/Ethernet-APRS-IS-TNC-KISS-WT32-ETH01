@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 
-<html data-bs-theme="auto" lang="pl">
+<html data-bs-theme="light" lang="pl">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>APRS iGate — SP8RPA</title>
+<script>
+/* Apply saved theme before CSS paints to avoid flashing the wrong colors. */
+(function () {
+    var theme = 'light';
+    try {
+        if (localStorage.getItem('wt32-igate-theme') === 'dark') theme = 'dark';
+    } catch (_) {}
+    document.documentElement.setAttribute('data-bs-theme', theme);
+})();
+</script>
 <link href="/bootstrap.css" rel="stylesheet"/>
 <link href="/style.css" rel="stylesheet"/>
 </head>
@@ -43,7 +53,12 @@
                                 </a>
 </li>
 </ul>
-<div class="d-flex">
+<div class="d-flex align-items-center flex-wrap">
+<button id="theme-switch" class="btn btn-outline-secondary btn-sm me-2 my-2 my-sm-0" type="button"
+        aria-label="Ciemny motyw" aria-pressed="false" title="Ciemny motyw">
+    <span class="theme-icon" aria-hidden="true">☾</span>
+    <span class="theme-label">Ciemny motyw</span>
+</button>
 <div aria-label="Language / Język" class="btn-group me-2 my-2 my-sm-0" id="language-switch" role="group"><button aria-pressed="false" class="btn btn-outline-secondary btn-sm" data-lang="pl" type="button">PL</button><button aria-pressed="false" class="btn btn-outline-secondary btn-sm" data-lang="en" type="button">EN</button></div><button class="btn btn-success my-2 my-sm-0" data-i18n="nav.save" type="submit">Save</button>
 </div>
 </div>
