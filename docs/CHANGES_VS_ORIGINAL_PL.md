@@ -21,7 +21,6 @@ Wersja funkcjonalna: **V4.3 FINAL**.
 | Współbieżność | `std::vector` historii odczytywany w obsłudze HTTP równocześnie z aktualizacją przez `loop()` | Mutex FreeRTOS przy aktualizacji i tworzeniu kopii historii |
 | Obsługa WWW | Tabela mogła tracić dane przy błędzie pobierania; brak pauzy | Ochrona bieżących wierszy przed błędem JSON, pauza odświeżania, licznik pakietów i czas pracy urządzenia |
 | Pochodzenie ramek | Historia przechowywała numer portu `1` także dla drugiego wejścia | Historia oznacza port B jako `2` |
-| Stopka | `2024 SQ2CPA` | Zachowano oryginalną informację; dodatkowo **Modified by SP8RPA © 2026** z linkiem do profilu GitHub |
 
 ## Kolejne etapy pracy (skrócona historia)
 
