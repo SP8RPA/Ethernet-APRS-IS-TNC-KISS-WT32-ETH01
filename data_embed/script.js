@@ -10,6 +10,8 @@ const I18N = {
     "nav.packets": "Odebrane ramki",
     "nav.save": "Zapisz",
     "nav.toggle": "Rozwiń menu",
+    "theme.enableDark": "Ciemny motyw",
+    "theme.enableLight": "Jasny motyw",
     "packets.title": "Ostatnie 20 odebranych ramek",
     "packets.time": "Czas*",
     "packets.frame": "Ramka",
@@ -62,6 +64,8 @@ const I18N = {
     "nav.packets": "Received packets",
     "nav.save": "Save",
     "nav.toggle": "Toggle navigation",
+    "theme.enableDark": "Dark mode",
+    "theme.enableLight": "Light mode",
     "packets.title": "Last 20 received packets",
     "packets.time": "Time*",
     "packets.frame": "Frame",
@@ -107,6 +111,29 @@ const I18N = {
 };
 let currentLanguage = 'pl';
 let lastRxStatus = null;
+let currentTheme = document.documentElement.getAttribute('data-bs-theme') === 'dark' ? 'dark' : 'light';
+
+function updateThemeControl() {
+    const button = document.getElementById('theme-switch');
+    const label = tr(currentTheme === 'dark' ? 'theme.enableLight' : 'theme.enableDark');
+    button.querySelector('.theme-icon').textContent = currentTheme === 'dark' ? '☀' : '☾';
+    button.querySelector('.theme-label').textContent = label;
+    button.setAttribute('aria-label', label);
+    button.setAttribute('title', label);
+    button.setAttribute('aria-pressed', String(currentTheme === 'dark'));
+}
+
+function setTheme(theme) {
+    currentTheme = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-bs-theme', currentTheme);
+    try { localStorage.setItem('wt32-igate-theme', currentTheme); } catch (_) {}
+    updateThemeControl();
+}
+
+document.getElementById('theme-switch').addEventListener('click', (event) => {
+    event.preventDefault();
+    setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+});
 
 function tr(key, values = {}) {
     const template = I18N[currentLanguage][key] || I18N.en[key] || key;
@@ -129,6 +156,7 @@ function setLanguage(lang) {
         button.setAttribute('aria-pressed', String(active));
     }
     try { localStorage.setItem('wt32-igate-language', currentLanguage); } catch (_) {}
+    updateThemeControl();
     if (lastRxStatus !== null) {
         updateRxStatus(lastRxStatus);
     }
