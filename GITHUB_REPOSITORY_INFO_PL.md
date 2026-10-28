@@ -14,6 +14,6 @@
 
 Docelowy tag wydania: `v4.3-sp8rpa` (tag nie jest jeszcze utworzony).
 
-Kod firmware zachowuje działającą bazę V4.3. Zmieniono jedynie stopkę WWW względem zatwierdzonej bazy. Informacje o poprawkach znajdują się w `docs/CHANGES_VS_ORIGINAL_PL.md`.
+Opis zmian względem pierwowzoru znajduje się w `docs/CHANGES_VS_ORIGINAL_PL.md`. Bramka współpracuje z kompatybilnymi urządzeniami TNC KISS przez UART.
 
 Nie publikuj własnej konfiguracji urządzenia z prawdziwym passcode APRS-IS. Plik `data/config.json` jest wyłącznie przykładem.
