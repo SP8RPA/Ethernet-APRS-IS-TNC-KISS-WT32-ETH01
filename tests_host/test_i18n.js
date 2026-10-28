@@ -8,16 +8,22 @@ const path = require('node:path');
 class MockElement {
   constructor(dataset={}) { this.dataset=dataset; this.classList={values:new Set(),toggle:(key,active)=>active?this.classList.values.add(key):this.classList.values.delete(key),add:()=>{},remove:()=>{}};this.attrs={};this.listeners={};this.textContent='';this.checked=false;this.value='test-value';}
   setAttribute(k,v){this.attrs[k]=v;}
+  getAttribute(k){return this.attrs[k]||null;}
   addEventListener(k,fn){this.listeners[k]=fn;}
 }
 const labels=[new MockElement({i18n:'nav.save'}),new MockElement({i18n:'packets.title'})];
 const aria=[new MockElement({i18nAria:'nav.toggle'})];
 const buttons=[new MockElement({lang:'pl'}),new MockElement({lang:'en'})];
-const elements={backup:new MockElement(),restore:new MockElement(),reboot:new MockElement(),'saveModal':new MockElement(),'savedModal':new MockElement(),'callsign':new MockElement(),'rx-status':new MockElement(),'pause-packets':new MockElement()};
+const themeSwitch=new MockElement();
+const themeIcon=new MockElement();
+const themeLabel=new MockElement();
+themeSwitch.querySelector=(selector)=>({'.theme-icon':themeIcon,'.theme-label':themeLabel}[selector]);
+const elements={'theme-switch':themeSwitch,backup:new MockElement(),restore:new MockElement(),reboot:new MockElement(),'saveModal':new MockElement(),'savedModal':new MockElement(),'callsign':new MockElement(),'rx-status':new MockElement(),'pause-packets':new MockElement()};
 const input = new MockElement();
 const form = new MockElement();
 const navLink = new MockElement();
-const document={documentElement:{lang:'en'},getElementById(id){return elements[id]||(elements[id]=new MockElement());},querySelectorAll(selector){if(selector==='[data-i18n]')return labels;if(selector==='[data-i18n-aria]')return aria;if(selector==='#language-switch button[data-lang]')return buttons;throw Error('unexpected selector '+selector);},querySelector(selector){if(selector==='form')return form;if(selector==='input[type=file]')return input;if(selector==='a[href="/received-packets"]')return navLink;if(selector==='#toast')return new MockElement();throw Error('unexpected selector '+selector)}};
+const root=new MockElement();root.lang='en';root.setAttribute('data-bs-theme','light');
+const document={documentElement:root,getElementById(id){return elements[id]||(elements[id]=new MockElement());},querySelectorAll(selector){if(selector==='[data-i18n]')return labels;if(selector==='[data-i18n-aria]')return aria;if(selector==='#language-switch button[data-lang]')return buttons;throw Error('unexpected selector '+selector);},querySelector(selector){if(selector==='form')return form;if(selector==='input[type=file]')return input;if(selector==='a[href="/received-packets"]')return navLink;if(selector==='#toast')return new MockElement();throw Error('unexpected selector '+selector)}};
 const store = new Map();
 const localStorage={getItem(k){return store.get(k)||null},setItem(k,v){store.set(k,v)}};
 const context={document,localStorage,bootstrap:{Modal:class {hide(){}show(){}},Toast:class {show(){}}},fetch:()=>new Promise(()=>{}),setTimeout:()=>0,clearTimeout:()=>{},AbortController:class {},FormData:class{},console};
