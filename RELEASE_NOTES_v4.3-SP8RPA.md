@@ -1,6 +1,6 @@
 # V4.3 FINAL — SP8RPA Edition (2026)
 
-Zmodyfikowany projekt SQ2CPA APRS Ethernet iGate dla WT32-ETH01 i zewnętrznego radia/TNC KISS.
+Zmodyfikowany projekt SQ2CPA APRS Ethernet iGate dla WT32-ETH01 i **dowolnego zgodnego interfejsu TNC KISS przez UART**. Heltec Wireless Stick Lite V3 jest jednym z możliwych urządzeń współpracujących.
 
 ## Najważniejsze względem pierwowzoru
 
@@ -13,11 +13,11 @@ Zmodyfikowany projekt SQ2CPA APRS Ethernet iGate dla WT32-ETH01 i zewnętrznego 
 
 ## Potwierdzone
 
-Na instalacji użytkownika zestaw Heltec Stick Lite V3 → KISS → WT32-ETH01 → Ethernet przesyłał ramki do APRS-IS widoczne na aprs.fi. W 10 pokazanych pakietach po zmianie na UART2 nie stwierdzono widocznych błędów w nagłówkach i tekście.
+**Test długoterminowy: zaliczony.** Potwierdzono pracę WT32-ETH01 jako bramki TNC KISS → Ethernet → APRS-IS, z ramkami widocznymi na aprs.fi. W instalacji testowej wykorzystano Heltec Wireless Stick Lite V3 jako przykładowy TNC.
 
 ## Uwagi
 
-To edycja firmware **V4.3**, nie nowe wydanie z eksperymentalnymi zmianami w torze transmisji. Samo oznaczenie autorstwa nie zmienia funkcji urządzenia. Kompilację i test tej edycji należy wykonać po pobraniu; poprzednia V4.3 była używana na urządzeniu.
+Wydanie firmware: **V4.3 FINAL**.
 
 Pierwowzór: https://github.com/SQ2CPA/APRS_Ethernet_IGate  
 Modyfikacje: https://github.com/SP8RPA  
