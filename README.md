@@ -54,14 +54,28 @@ Przykładowe ustawienia Helteca: **Hardware Serial TNC = ON**, **mode = KISS**, 
 
 ## Instalacja i kompilacja
 
-Wymagane: VS Code + PlatformIO, ESP32 WT32-ETH01, adapter USB-UART **3,3 V** do programowania, Ethernet RJ45. W `platformio.ini` zdefiniowano środowisko `wt32-eth01`.
+Wymagane: VS Code + PlatformIO, WT32-ETH01, konwerter **USB–UART TTL z sygnałami 3,3 V** oraz połączenie Ethernet RJ45. W `platformio.ini` zdefiniowano środowisko `wt32-eth01`.
+
+### Programator USB–UART
+
+Do programowania WT32-ETH01 w instalacji SP8RPA użyto **kablowego konwertera USB–UART PL2303HX (1 m)**: [przykładowa oferta na Allegro](https://allegro.pl/oferta/konwerter-usb-rs232-ttl-pl2303hx-kabel-przewod-1m-9188100301). Można zastosować również inny zgodny konwerter USB–UART TTL.
+
+| Konwerter USB–UART | WT32-ETH01 |
+|---|---|
+| TXD | RXD (GPIO3, RX0) |
+| RXD | TXD (GPIO1, TX0) |
+| GND | GND |
+
+**Uwaga:** poziomy logiczne TXD/RXD muszą być zgodne z **3,3 V** ESP32; interfejs TTL nie jest klasycznym RS-232 o wyższych napięciach. Nie należy ustalać TXD/RXD wyłącznie na podstawie kolorów przewodów, ponieważ oznaczenia kabli PL2303HX mogą się różnić. Jeżeli konwerter ma wyprowadzony przewód zasilania **5 V**, wolno podłączyć go wyłącznie do wejścia **5V** WT32-ETH01, o ile źródło USB zapewnia wystarczający prąd. Można również zasilać WT32 z osobnego stabilizowanego źródła; w takim przypadku nie łącz przewodu 5 V konwertera. Nie zasilaj równocześnie wejść 5 V i 3V3.
+
+### Kompilacja i wgrywanie
 
 ```bash
 pio run -e wt32-eth01
 pio run -e wt32-eth01 -t upload --upload-port COMx
 ```
 
-Wybierz rzeczywisty port swojego adaptera zamiast `COMx`. Do flashowania ESP32 zrób zworkę pomiędzy **GPIO0 a GND** podczas uruchamiania trybu programowania; **przed normalnym startem odłącz GPIO0 od GND**.
+Wybierz rzeczywisty port COM konwertera zamiast `COMx`. Do flashowania ESP32 zrób zworkę między **GPIO0 a GND**, a następnie zresetuj lub włącz zasilanie urządzenia. Po zakończeniu programowania **odłącz zworkę GPIO0–GND przed normalnym uruchomieniem**.
 
 Po pierwszym uruchomieniu ustaw w panelu WWW **własny znak, APRS-IS passcode i serwer**. Repo zawiera wyłącznie przykładowy `data/config.json` z `N0CALL` i placeholderem passcode, nie prawdziwe dane instalacji.
 
